@@ -28,6 +28,8 @@ function setIdle() {
 function setIdleFinished() {
     clearInterval(interval);
     mousePos = mouseInc * 7;
+    document.getElementById("mouse").style.backgroundPosition = `-${mousePos}px, 0px`;
+
     interval = setInterval( () => {
         document.getElementById("mouse").style.backgroundPosition = `-${mousePos}px, 0px`;
     
@@ -37,7 +39,7 @@ function setIdleFinished() {
             mousePos += mouseInc;
         }
     
-    }, frameMs * 3);    
+    }, frameMs * 3);  
 }
 
 document.onkeydown = function (e) {
@@ -64,6 +66,7 @@ function playBite() {
             if (curr_press == MAX_PRESS) {
                 pressed = true;
                 document.getElementById("text").style.opacity = 1;
+                document.getElementById("instructions").style.opacity = 0;
                 setIdleFinished();
             } else {
                 setIdle();
