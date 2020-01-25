@@ -25,33 +25,51 @@ function setIdle() {
     }, frameMs);    
 }
 
-function setIdleFinished() {
+function transitionToFinish() {
     clearInterval(interval);
     mousePos = mouseInc * 7;
     document.getElementById("mouse").style.backgroundPosition = `-${mousePos}px, 0px`;
 
     interval = setInterval( () => {
         document.getElementById("mouse").style.backgroundPosition = `-${mousePos}px, 0px`;
-    
-        if (mousePos == mouseInc * 12) {
-            mousePos = 7 * mouseInc;
+        
+        if (mousePos == mouseInc * 10) {
+            setIdleFinished();
         } else {
             mousePos += mouseInc;
         }
-    
+    }, frameMs);  
+}
+
+function setIdleFinished() {
+    clearInterval(interval);
+    document.getElementById("mouse").style.backgroundPosition = `-${mousePos}px, 0px`;
+
+    interval = setInterval( () => {
+        document.getElementById("mouse").style.backgroundPosition = `-${mousePos}px, 0px`;
+        
+        if (mousePos == mouseInc * 15) {
+            mousePos = 10 * mouseInc;
+        } else {
+            mousePos += mouseInc;
+        }
     }, frameMs * 3);  
 }
 
-document.onkeydown = function (e) {
-    if (e.keyCode == SPACE && pressed == false) {
+document.ontouchstart = start();
+document.onkeydown = function(e) {
+    if (e.keyCode == SPACE && pressed == false) start();
+};
+
+function start () {
+    console.log("boop");
+    pressed = true;
+    if (curr_press == MAX_PRESS) {
         pressed = true;
-        if (curr_press == MAX_PRESS) {
-            pressed = true;
-            setIdleFinished();
-        } else {
-            curr_press++;
-            playBite();
-        }
+        setIdleFinished();
+    } else {
+        curr_press++;
+        playBite();
     }
 }
 
@@ -67,7 +85,7 @@ function playBite() {
                 pressed = true;
                 document.getElementById("text").style.opacity = 1;
                 document.getElementById("instructions").style.opacity = 0;
-                setIdleFinished();
+                transitionToFinish();
             } else {
                 setIdle();
             }
