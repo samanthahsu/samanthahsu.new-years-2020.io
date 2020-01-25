@@ -11,7 +11,7 @@ var interval;
 
 setIdle();
 
-document.getElementById("div").addEventListener('touchstart', start());
+// document.getElementById("div").addEventListener('touchstart', startBite());
 
 function setIdle() {
     clearInterval(interval)
@@ -59,11 +59,12 @@ function setIdleFinished() {
 }
 
 // document.ontouchstart = start();
+document.onclick = startBite();
 document.onkeydown = function(e) {
-    if (e.keyCode == SPACE && pressed == false) start();
+    if (e.keyCode == SPACE && pressed == false) startBite();
 };
 
-function start () {
+function startBite() {
     console.log("boop");
     pressed = true;
     if (curr_press == MAX_PRESS) {
