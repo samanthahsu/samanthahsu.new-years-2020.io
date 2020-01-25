@@ -11,6 +11,8 @@ var interval;
 
 setIdle();
 
+document.getElementById("div").addEventListener('touchstart', start());
+
 function setIdle() {
     clearInterval(interval)
     interval = setInterval( () => {
@@ -56,7 +58,7 @@ function setIdleFinished() {
     }, frameMs * 3);  
 }
 
-document.ontouchstart = start();
+// document.ontouchstart = start();
 document.onkeydown = function(e) {
     if (e.keyCode == SPACE && pressed == false) start();
 };
